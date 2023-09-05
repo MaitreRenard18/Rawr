@@ -1,3 +1,4 @@
+// Canvas setup
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 
@@ -5,6 +6,7 @@ var resolution = 8
 canvas.width *= resolution
 canvas.height *= resolution
 
+// Werewolf class
 class ScaryWerewolf {
     constructor () {
         this.x = 0;
@@ -19,12 +21,18 @@ class ScaryWerewolf {
         this.texture.src = "content/images/scary-werewolf.jpg";
     }
 
+    update() {
+        this.x += this.xDirection * this.speed;
+        this.y += this.yDirection * this.speed;
+    }
+
     draw(ctx) {
         var scaleFactor = 0.4;
-        ctx.drawImage(this.texture, this.x, this.y, this.texture.width * scaleFactor, this.texture.height * scaleFactor)
+        ctx.drawImage(this.texture, this.x, this.y, this.texture.width * scaleFactor, this.texture.height * scaleFactor);
     }
 }
 
+// Gameloop
 window.requestAnimationFrame(gameLoop);
 werewolf = new ScaryWerewolf;
 
@@ -32,13 +40,13 @@ function gameLoop() {
     ctx.fillStyle = "white";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    werewolf.x += werewolf.xDirection * werewolf.speed;
-    werewolf.y += werewolf.yDirection * werewolf.speed;
-    werewolf.draw(ctx)
+    werewolf.update();
+    werewolf.draw(ctx);
 
     window.requestAnimationFrame(gameLoop);
 }
 
+// Key events
 document.addEventListener("keydown", (event) => {
     var key = event.key;
 
