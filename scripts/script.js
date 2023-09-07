@@ -24,7 +24,7 @@ class ScaryWerewolf {
         this.xDirection = 0;
         this.yDirection = 0;
 
-        this.speed = 8;
+        this.speed = 6;
 
         this.texture = new Image();
         this.texture.src = "content/images/scary-werewolf.jpg";
@@ -129,7 +129,11 @@ var props = []
 function initializeProps() {
     for (let i = 0; i < 50; i++) {
         // Create and add random props to the list
-        let prop = new Prop(randomInteger(-canvas.width / 2, canvas.width / 2), randomInteger(-canvas.height / 2, canvas.height / 2), 50, 50, "orange");
+        let x = Math.floor(randomInteger(-canvas.width / 2 / 50, canvas.width / 2 / 50)) * 50
+        let y = Math.floor(randomInteger(-canvas.height / 2 / 50, canvas.height / 2 / 50)) * 50
+
+        console.log(x)
+        let prop = new Prop(x, y, 50, 50, "orange");
         if (!werewolf.checkAABBCollision(prop)) {
             props.push(prop);
         }
