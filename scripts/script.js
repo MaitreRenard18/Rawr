@@ -49,7 +49,7 @@ class ScaryWerewolf {
             this.x + this.width / 2 > object.x - object.width / 2 &&
             this.y - this.height / 2 <object.y + object.height / 2 &&
             this.y + this.height / 2 >object.y - object.height / 2
-        )
+        );
     }
 
     // Update the werewolf's position
@@ -129,10 +129,9 @@ var props = []
 function initializeProps() {
     for (let i = 0; i < 50; i++) {
         // Create and add random props to the list
-        let x = Math.floor(randomInteger(-canvas.width / 2 / 50, canvas.width / 2 / 50)) * 50
-        let y = Math.floor(randomInteger(-canvas.height / 2 / 50, canvas.height / 2 / 50)) * 50
+        let x = Math.floor(randomInteger(-canvas.width / 2 / 50, canvas.width / 2 / 50)) * 50;
+        let y = Math.floor(randomInteger(-canvas.height / 2 / 50, canvas.height / 2 / 50)) * 50;
 
-        console.log(x)
         let prop = new Prop(x, y, 50, 50, "orange");
         if (!werewolf.checkAABBCollision(prop)) {
             props.push(prop);
