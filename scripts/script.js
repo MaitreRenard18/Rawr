@@ -90,7 +90,6 @@ class ScaryWerewolf {
         collidedWith.forEach((prop) => {
             if (prop.destroyable) {
                 let index = props.indexOf(prop);
-                console.log(index)
                 props.splice(index, 1);
             } else {
                 obstructed = true;
