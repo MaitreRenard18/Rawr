@@ -60,6 +60,7 @@ class ScaryWerewolf {
         let xCollided = false;
         let yCollided = false;
         
+        let collidedWith = []
         props.forEach(prop => {
             // Check for horizontal collision
             if (
@@ -69,6 +70,7 @@ class ScaryWerewolf {
                 this.y + this.height / 2 > prop.y - prop.height / 2
             ) {
                 xCollided = true;
+                collidedWith.push(prop);
             }
             
             // Check for vertical collision
@@ -79,9 +81,27 @@ class ScaryWerewolf {
                 y + this.height / 2 > prop.y - prop.height / 2
             ) {
                 yCollided = true;
+                collidedWith.push(prop);
             }
         });
-    
+        
+        // Destroy prop
+        let obstructed = false;
+        collidedWith.forEach((prop) => {
+            if (prop.destroyable) {
+                let index = props.indexOf(prop);
+                console.log(index)
+                props.splice(index, 1);
+            } else {
+                obstructed = true;
+            }
+        })
+
+        if (!obstructed) {
+            xCollided = false;
+            yCollided = false;
+        }
+
         // Handle horizontal movement
         if (!xCollided) {
             this.x = x;
@@ -105,13 +125,14 @@ class ScaryWerewolf {
 
 // Props class
 class Prop {
-    constructor (x, y, height, width, color) {
+    constructor (x, y, height, width, color, destroyable) {
         // Initialize prop properties
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.color = color;
+        this.destroyable = destroyable;
     }
 
     // Draw the prop on the canvas
@@ -131,8 +152,15 @@ function initializeProps() {
         // Create and add random props to the list
         let x = Math.floor(randomInteger(-canvas.width / 2 / 50, canvas.width / 2 / 50)) * 50;
         let y = Math.floor(randomInteger(-canvas.height / 2 / 50, canvas.height / 2 / 50)) * 50;
+        let destroyable = Math.random() > .5
+        
+        let prop = null;
+        if (!destroyable) {
+            prop = new Prop(x, y, 50, 50, "orange", false);
+        } else {
+            prop = new Prop(x, y, 50, 50, "blue", true);
+        }
 
-        let prop = new Prop(x, y, 50, 50, "orange");
         if (!werewolf.checkAABBCollision(prop)) {
             props.push(prop);
         }
