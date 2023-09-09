@@ -122,7 +122,7 @@ class ScaryWerewolf {
     }
 }
 
-// Props class
+// Placeholder props class
 class Prop {
     constructor (x, y, height, width, color, destroyable) {
         // Initialize prop properties
@@ -137,14 +137,20 @@ class Prop {
     // Draw the prop on the canvas
     draw(ctx) {
         ctx.fillStyle = this.color;
-        ctx.fillRect(this.x - cameraOffsetX - this.width / 2, this.y - cameraOffsetY - this.height / 2  , this.width, this.height);
+        if (!this.destroyable) {
+            ctx.fillRect(this.x - cameraOffsetX - this.width / 2, this.y - cameraOffsetY - this.height / 2, this.width, this.height);
+        } else {
+            ctx.beginPath();
+            ctx.arc(this.x - cameraOffsetX, this.y - cameraOffsetY, this.width / 2, 0, 2 * Math.PI)
+            ctx.fill();
+        }
     }
 }
 
 // Setup werewolf
 var werewolf = new ScaryWerewolf();
 
-// Function to initialize props and check for collisions
+// Placeholder function to initialize props
 var props = []
 function initializeProps() {
     for (let i = 0; i < 50; i++) {
