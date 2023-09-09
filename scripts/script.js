@@ -193,7 +193,7 @@ document.addEventListener("keydown", (event) => {
     var key = event.key;
 
     // Handle key presses to control the werewolf's movement
-    switch (key) {
+    switch (key.toLowerCase()) {
         case "z":
             werewolf.yDirection = -1;
             break;
